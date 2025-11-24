@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Sample Tasks - Nocturne</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+    h1 {
+      color: #9333ea;
+    }
+    button {
+      background: #9333ea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+    button:hover {
+      background: #7c3aed;
+    }
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+    .success {
+      background: #10b981;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 20px 0;
+      display: none;
+    }
+    .info {
+      background: #374151;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .task-list {
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .task-item {
+      padding: 8px;
+      margin: 5px 0;
+      border-left: 3px solid #9333ea;
+      padding-left: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🦇 Nocturne Task Manager - Sample Tasks</h1>
+  
+  <div class="info">
+    <strong>Instructions:</strong>
+    <ol>
+      <li>Click "Add Sample Tasks" to populate localStorage</li>
+      <li>Go back to your Nocturne app (localhost:3002)</li>
+      <li>Reload the page to see the tasks</li>
+      <li>Click "AI Focus Coach" to test the feature</li>
+    </ol>
+  </div>
+
+  <div class="task-list">
+    <h3>Sample Tasks to be Added:</h3>
+    <div class="task-item">📝 Review pull request for authentication feature (High Priority)</div>
+    <div class="task-item">🧪 Write unit tests for payment service (High Priority)</div>
+    <div class="task-item">📚 Update API documentation (Medium Priority)</div>
+    <div class="task-item">🐛 Fix responsive layout on mobile (Medium Priority)</div>
+    <div class="task-item">⚡ Optimize database queries (Low Priority)</div>
+  </div>
+
+  <button id="addTasks">Add Sample Tasks</button>
+  <button id="clearTasks">Clear All Tasks</button>
+  <button id="viewTasks">View Current Tasks</button>
+
+  <div id="success" class="success"></div>
+  <div id="output" class="info" style="display: none;"></div>
+
+  <script>
+    function createSampleTasks() {
+      const now = Date.now();
+      
+      return [
+        {
+          id: `task-${now}-1`,
+          title: 'Review pull request for authentication feature',
+          description: 'Check code quality, test coverage, and security implications',
+          status: 'todo',
+          priority: 'high',
+          tags: ['code-review', 'security'],
+          createdAt: now,
+          updatedAt: now,
+        },
+        {
+          id: `task-${now}-2`,
+          title: 'Write unit tests for payment service',
+          description: 'Cover edge cases for refund processing and error handling',
+          status: 'todo',
+          priority: 'high',
+          tags: ['testing', 'backend'],
+          createdAt: now,
+          updatedAt: now,
+        },
+        {
+          id: `task-${now}-3`,
+          title: 'Update API documentation',
+          description: 'Document new endpoints and update examples',
+          status: 'todo',
+          priority: 'medium',
+          tags: ['documentation'],
+          createdAt: now,
+          updatedAt: now,
+        },
+        {
+          id: `task-${now}-4`,
+          title: 'Fix responsive layout on mobile',
+          description: 'Navigation menu breaks on screens smaller than 375px',
+          status: 'todo',
+          priority: 'medium',
+          tags: ['frontend', 'bug'],
+          createdAt: now,
+          updatedAt: now,
+        },
+        {
+          id: `task-${now}-5`,
+          title: 'Optimize database queries',
+          description: 'Profile slow queries and add appropriate indexes',
+          status: 'todo',
+          priority: 'low',
+          tags: ['performance', 'database'],
+          createdAt: now,
+          updatedAt: now,
+        },
+      ];
+    }
+
+    document.getElementById('addTasks').addEventListener('click', () => {
+      const tasks = createSampleTasks();
+      const existingData = localStorage.getItem('nocturne-tasks');
+      const existingTasks = existingData ? JSON.parse(existingData) : [];
+      
+      const allTasks = [...existingTasks, ...tasks];
+      localStorage.setItem('nocturne-tasks', JSON.stringify(allTasks));
+      
+      const successDiv = document.getElementById('success');
+      successDiv.textContent = `✅ Added ${tasks.length} sample tasks! Go to localhost:3002 and reload the page.`;
+      successDiv.style.display = 'block';
+      
+      setTimeout(() => {
+        successDiv.style.display = 'none';
+      }, 5000);
+    });
+
+    document.getElementById('clearTasks').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all tasks?')) {
+        localStorage.removeItem('nocturne-tasks');
+        const successDiv = document.getElementById('success');
+        successDiv.textContent = '🗑️ All tasks cleared!';
+        successDiv.style.display = 'block';
+        
+        setTimeout(() => {
+          successDiv.style.display = 'none';
+        }, 3000);
+      }
+    });
+
+    document.getElementById('viewTasks').addEventListener('click', () => {
+      const existingData = localStorage.getItem('nocturne-tasks');
+      const tasks = existingData ? JSON.parse(existingData) : [];
+      
+      const outputDiv = document.getElementById('output');
+      if (tasks.length === 0) {
+        outputDiv.innerHTML = '<strong>No tasks found in localStorage</strong>';
+      } else {
+        outputDiv.innerHTML = `<strong>Current Tasks (${tasks.length}):</strong><br><pre>${JSON.stringify(tasks, null, 2)}</pre>`;
+      }
+      outputDiv.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

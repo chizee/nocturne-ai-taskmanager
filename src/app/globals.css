@@ -1,0 +1,448 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heading: "Cinzel", serif;
+  --font-body: "Crimson Text", serif;
+  
+  /* Theme colors (will be updated by ThemeManager) */
+  --color-bg: #0a0a0a;
+  --color-fg: #e5e5e5;
+  --color-primary: #8b5cf6;
+  --color-secondary: #6366f1;
+  --color-accent: #a78bfa;
+  --color-muted: #404040;
+  
+  /* Animation settings */
+  --transition-duration: 200ms;
+}
+
+@layer base {
+  * {
+    @apply border-minimal-muted;
+  }
+  
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transition: background-color var(--transition-duration) ease,
+                color var(--transition-duration) ease;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Breathing glow animation for Twilight and Haunted themes */
+  .breathing-glow {
+    animation: breathingGlow 3s ease-in-out infinite;
+  }
+  
+  @keyframes breathingGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+    }
+  }
+  
+  /* Theme-specific styles */
+  .theme-minimal {
+    --color-bg: #0a0a0a;
+    --color-fg: #e5e5e5;
+    --color-primary: #8b5cf6;
+    --color-secondary: #6366f1;
+    --color-accent: #a78bfa;
+    --color-muted: #404040;
+  }
+  
+  .theme-twilight {
+    --color-bg: #0f0a1a;
+    --color-fg: #e8e0f5;
+    --color-primary: #9333ea;
+    --color-secondary: #7c3aed;
+    --color-accent: #c084fc;
+    --color-muted: #4c1d95;
+  }
+  
+  .theme-haunted {
+    --color-bg: #1a0a2e;
+    --color-fg: #f0e6ff;
+    --color-primary: #a855f7;
+    --color-secondary: #9333ea;
+    --color-accent: #d8b4fe;
+    --color-muted: #581c87;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .bg-theme {
+    background-color: var(--color-bg);
+  }
+  
+  .text-theme {
+    color: var(--color-fg);
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  
+  .text-accent {
+    color: var(--color-accent);
+  }
+  
+  .text-muted {
+    color: var(--color-muted);
+  }
+  
+  .border-theme {
+    border-color: var(--color-muted);
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .breathing-glow {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   ATMOSPHERIC EFFECTS & ANIMATIONS
+   ======================================== */
+
+/* Floating animation for ghost and UI elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Pulsing glow for neon elements */
+@keyframes pulse-glow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px var(--color-primary)) 
+            drop-shadow(0 0 20px var(--color-primary)); 
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px var(--color-primary)) 
+            drop-shadow(0 0 40px var(--color-primary)); 
+  }
+}
+
+/* Shimmer effect for cards */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Fog drifting animation */
+@keyframes fog-drift {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(100px) translateY(-20px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+/* Ghost floating with rotation */
+@keyframes ghost-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(-2deg); }
+  75% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Smoke rising effect */
+@keyframes smoke-rise {
+  0% { 
+    transform: translateY(0) scale(1); 
+    opacity: 0.7; 
+  }
+  100% { 
+    transform: translateY(-100px) scale(1.5); 
+    opacity: 0; 
+  }
+}
+
+/* Twinkling stars/particles */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Moon glow pulse */
+@keyframes moon-glow {
+  0%, 100% { 
+    box-shadow: 0 0 60px rgba(168, 139, 250, 0.6),
+                0 0 120px rgba(168, 139, 250, 0.4); 
+  }
+  50% { 
+    box-shadow: 0 0 80px rgba(168, 139, 250, 0.8),
+                0 0 160px rgba(168, 139, 250, 0.6); 
+  }
+}
+
+/* Neon button pulse */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px var(--color-primary),
+      0 0 20px var(--color-primary),
+      0 0 30px var(--color-primary),
+      inset 0 0 10px var(--color-primary);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px var(--color-primary),
+      0 0 40px var(--color-primary),
+      0 0 60px var(--color-primary),
+      inset 0 0 20px var(--color-primary);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Neon glow text effect */
+.neon-glow {
+  text-shadow: 
+    0 0 10px var(--color-primary),
+    0 0 20px var(--color-primary),
+    0 0 30px var(--color-primary),
+    0 0 40px var(--color-accent);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Parallax layers */
+.parallax-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Fog effect */
+.fog {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(139, 92, 246, 0.1) 25%,
+    rgba(139, 92, 246, 0.2) 50%,
+    rgba(139, 92, 246, 0.1) 75%,
+    transparent 100%
+  );
+  animation: fog-drift 20s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+/* Particle effects */
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Tombstone card effect */
+.tombstone-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(30, 20, 40, 0.9), rgba(20, 10, 30, 0.95));
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.tombstone-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-primary);
+  box-shadow: 
+    0 0 20px rgba(139, 92, 246, 0.4),
+    0 0 40px rgba(139, 92, 246, 0.2),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.tombstone-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tombstone-card:hover::before {
+  opacity: 1;
+}
+
+/* Neon button */
+.neon-button {
+  position: relative;
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+.neon-button:hover {
+  background: var(--color-primary);
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Ghost animation */
+.ghost-float {
+  animation: ghost-float 4s ease-in-out infinite;
+}
+
+/* Smoke effect */
+.smoke {
+  animation: smoke-rise 4s ease-out infinite;
+}
+
+/* Moon */
+.moon {
+  animation: moon-glow 4s ease-in-out infinite;
+}
+
+/* Floating animation */
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ========================================
+   SCENE ELEMENTS
+   ======================================== */
+
+/* Graveyard scene container */
+.graveyard-scene {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    #0a0a1f 0%,
+    #1a0f2e 50%,
+    #2a1a3e 100%
+  );
+}
+
+/* Stars background */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.7), transparent);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+/* Ground layer */
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(20, 10, 30, 0.8) 50%,
+    rgba(10, 5, 15, 0.95) 100%
+  );
+}
+
+/* Tree silhouettes */
+.tree {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  height: 300px;
+  background: #000;
+  clip-path: polygon(
+    50% 0%,
+    40% 20%,
+    45% 20%,
+    35% 40%,
+    40% 40%,
+    30% 60%,
+    35% 60%,
+    25% 80%,
+    30% 80%,
+    20% 100%,
+    80% 100%,
+    75% 80%,
+    70% 80%,
+    75% 60%,
+    70% 60%,
+    65% 40%,
+    60% 40%,
+    55% 20%,
+    60% 20%
+  );
+  opacity: 0.8;
+}
+
+.tree-left {
+  left: 5%;
+  transform: scaleX(-1);
+}
+
+.tree-right {
+  right: 5%;
+}

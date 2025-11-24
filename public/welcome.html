@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nocturne - An elegant, spooky-themed task manager with AI-powered focus sessions">
+  <title>Welcome to Nocturne 🌙</title>
+  <link rel="stylesheet" href="/styles/welcome.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Fullscreen Video Background -->
+  <div class="video-container" role="presentation">
+    <video 
+      id="intro-video"
+      class="background-video"
+      autoplay 
+      loop 
+      playsinline
+      preload="auto"
+      poster="/assets/image/nocturne-intro.png"
+      aria-label="Nocturne atmospheric background video"
+    >
+      <source src="/assets/intro-video/nocturne-intro.mp4" type="video/mp4">
+      <!-- Fallback for browsers that don't support video -->
+      <img 
+        src="/assets/image/nocturne-intro.png" 
+        alt="Nocturne atmospheric background" 
+        class="fallback-image"
+      />
+    </video>
+    
+    <!-- Dark overlay for readability -->
+    <div class="video-overlay" aria-hidden="true"></div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="content-container">
+    <div class="welcome-content">
+      <!-- Main CTA Button - Horizontal Card Style -->
+      <button 
+        id="enter-btn" 
+        class="enter-btn"
+        aria-label="Launch Nocturne Task Manager"
+        type="button"
+      >
+        <span class="btn-text">LAUNCH TASK MANAGER</span>
+      </button>
+      
+      <!-- Mute/Unmute toggle button -->
+      <button 
+        id="unmute-btn" 
+        class="unmute-btn"
+        aria-label="Mute background video"
+        type="button"
+      >
+        <span id="sound-icon">🔊</span>
+      </button>
+    </div>
+  </main>
+
+  <script src="/scripts/welcome.js"></script>
+</body>
+</html>
