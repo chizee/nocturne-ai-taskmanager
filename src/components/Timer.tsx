@@ -33,6 +33,18 @@ export const Timer: React.FC<TimerProps> = ({
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const handleComplete = () => {
+    setIsRunning(false);
+    setIsPaused(false);
+    setTimeLeft(selectedDuration);
+    setTotalDuration(selectedDuration);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    getSoundManager().play('task-complete');
+    onComplete?.();
+  };
+
   useEffect(() => {
     if (isRunning && !isPaused) {
       intervalRef.current = setInterval(() => {
@@ -55,6 +67,7 @@ export const Timer: React.FC<TimerProps> = ({
         clearInterval(intervalRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning, isPaused]);
 
   const handleStart = () => {
@@ -101,16 +114,6 @@ export const Timer: React.FC<TimerProps> = ({
       setTotalDuration(seconds);
       setCustomMinutes('');
     }
-  };
-
-  const handleComplete = () => {
-    setIsRunning(false);
-    setIsPaused(false);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    getSoundManager().play('task-complete');
-    onComplete?.();
   };
 
   const formatTime = (seconds: number): string => {

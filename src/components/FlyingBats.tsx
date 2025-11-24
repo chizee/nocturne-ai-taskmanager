@@ -57,7 +57,7 @@ export const FlyingBats: React.FC<{ enabled?: boolean }> = ({ enabled = true }) 
             }}
             initial={{ x: 0, opacity: 0 }}
             animate={{ 
-              x: window.innerWidth + 100, 
+              x: typeof window !== 'undefined' ? window.innerWidth + 100 : 1200, 
               opacity: [0, 1, 1, 0],
               y: [0, -20, -10, 0, 10, 0],
             }}

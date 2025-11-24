@@ -47,10 +47,10 @@ export const InteractiveGhost: React.FC = () => {
       dragMomentum={false}
       dragElastic={0.1}
       dragConstraints={{
-        top: -window.innerHeight / 2 + 100,
-        left: -window.innerWidth / 2 + 100,
-        right: window.innerWidth / 2 - 100,
-        bottom: window.innerHeight / 2 - 100,
+        top: typeof window !== 'undefined' ? -window.innerHeight / 2 + 100 : -300,
+        left: typeof window !== 'undefined' ? -window.innerWidth / 2 + 100 : -400,
+        right: typeof window !== 'undefined' ? window.innerWidth / 2 - 100 : 400,
+        bottom: typeof window !== 'undefined' ? window.innerHeight / 2 - 100 : 300,
       }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
